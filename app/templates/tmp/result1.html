@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>搜索结果页面</h1>
+{% if not novels %}
+    <ul>
+        {% for novel in novels %}
+            <li>
+                <a href="{{ url_for('novel.show_chapters',novel_name=novel.name, novel_id=novel.id) }}">{{ novel.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% for novel in novels %}
+    <li>
+        <a href="{{ url_for('novel.show_chapters',novel_name=novel.name, novel_id=novel.id) }}">{{ novel.name }}</a>
+    </li>
+{% endfor %}
+</body>
+</html>

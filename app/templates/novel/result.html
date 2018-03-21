@@ -1,0 +1,29 @@
+
+{% extends "novel/base.html" %}
+
+{% block div %}
+
+    {% for novel in novels %}
+        <div class="post-masonry col-md-4 col-sm-6 col-xs-12">
+            <div class="post-thumb">
+                <img src="{{ novel.image_src }}" alt="">
+                <div class="title-over">
+                    <h4><a href="#">{{ novel.name }}</a></h4>
+                </div>
+                <a href="{{ url_for('novel.show_chapters',novel_name=novel.name, novel_id=novel.id) }}">
+                    <div class="post-hover text-center">
+                        <div class="inside">
+                            <span class="">{{ novel.novel_type }}</span>
+                            <span class="date">最近更新 {{ novel.refresh_time }}</span>
+                            <h4><a href="#">{{ novel.author }}</a></h4>
+                            <p>{{ novel.desc }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+{% endblock %}

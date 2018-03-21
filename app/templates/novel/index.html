@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>漫阅湾</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-style.css') }}">
+
+    <style>
+        .site-top {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .site-banner {
+            padding-top: 30px;
+        }
+
+        #index_news {
+            font-size: 16px !important;
+            color: #fff !important;
+            position: relative !important;
+            left: 12px !important;
+            top: -9px !important;
+            z-index: 23 !important;
+        }
+
+    </style>
+
+    <script src="{{ url_for('static', filename='js/vendor/modernizr-2.6.2.min.js') }}"></script>
+</head>
+<body>
+<!--[if lt IE 7]>
+            <p class="browsehappy">漫阅湾提示：您正在使用已被淘汰的浏览器. 选择 <a href="http://browsehappy.com/">升级</a> 开启更多功能</p>
+        <![endif]-->
+
+<div id="loader-wrapper">
+    <div id="loader"></div>
+</div>
+
+<div class="content-bg"></div>
+<div class="bg-overlay"></div>
+
+<!-- SITE TOP -->
+<div class="site-top">
+    <div class="site-header clearfix">
+        <div class="container">
+            <a href="{{ url_for('novel.index') }}" class="site-brand pull-left"><strong>漫阅湾</strong> · 阅 </a>
+            <div class="social-icons pull-right">
+                <ul>
+                    <li><a href="{{ url_for('novel.index') }}">漫阅湾 · 阅</a></li>
+                    <li><a href="{{ url_for('comic.index') }}">漫阅湾 · 漫</a></li>
+                    <li><a href="http://csurong.github.io">博客</a></li>
+                    <li><a href="#">GitHub</a></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </div> <!-- .site-header -->
+    <div class="site-banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 text-center">
+                    <h2>欢迎提出 <span class="blue"> 建议 </span>或者<span class="green"> bug</span></h2>
+                    <p>这是一个简单的练手项目，第一版本用了两天时间写完。之后我将陆续上线新的功能，欢迎你在 github 上参与此项目，也欢迎你的 star 或 fork</p>
+                </div>
+            </div>
+            <div class="row">
+                <form action="#" method="post" class="subscribe-form">
+                    <fieldset class="col-md-offset-4 col-md-3 col-sm-8">
+                        {{ form.search_name }}
+                    </fieldset>
+                    <fieldset class="col-md-5 col-sm-4">
+                        {{ form.submit }}
+                    </fieldset>
+                    {{ form.csrf_token }}
+                </form>
+            </div>
+        </div>
+    </div> <!-- .site-banner -->
+</div> <!-- .site-top -->
+<!-- MAIN POSTS -->
+<div id="index_news">最新</div>
+<div class="main-posts">
+    <div class="container">
+        <div class="row">
+            <div class="blog-masonry masonry-true">
+
+                {% for novel in novels %}
+                    <div class="post-masonry col-md-4 col-sm-6 col-xs-12">
+                        <div class="post-thumb">
+                            <img src="{{ novel.image_src }}" alt="">
+                            <div class="title-over">
+                                <h4><a href="#">{{ novel.name }}</a></h4>
+                            </div>
+                            <a href="{{ url_for('novel.show_chapters',novel_name=novel.name, novel_id=novel.id) }}">
+                                <div class="post-hover text-center">
+                                    <div class="inside">
+                                        <span class="">{{ novel.novel_type }}</span>
+                                        <span class="date">最近更新 {{ novel.refresh_time }}</span>
+                                        <span class="">{{ novel.latest }}</span>
+                                        <h4><a href="#">{{ novel.author }}</a></h4>
+                                        <p>{{ novel.desc }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#">博客</a></li>
+                        <li><a href="#">github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="copyright-text">Copyright &copy; csurong</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+<script src="{{ url_for('static', filename='js/min/plugins.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/min/main.min.js') }}"></script>
+
+<!-- Preloader -->
+<script type="text/javascript">
+    //<![CDATA[
+    $(window).load(function () { // makes sure the whole site is loaded
+        $('#loader').fadeOut(); // will first fade out the loading animation
+        $('#loader-wrapper').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+        $('body').delay(350).css({'overflow-y': 'visible'});
+    })
+    //]]>
+</script>
+<!-- templatemo 434 masonry -->
+</body>
+</html>

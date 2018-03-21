@@ -1,0 +1,54 @@
+{% extends "novel/base.html" %}
+{% block style %}
+    <style>
+        .main-posts {
+            background-color: #f7f7f7 !important;
+            color: #2f2f2f !important;
+        }
+
+        .container .row {
+            font-size: 16px !important;
+            padding: 0 10% !important;
+        }
+
+        .btn-group {
+            display: block !important;
+            z-index: 7 !important;
+            text-align: center !important;
+        }
+
+        button {
+            margin: 20px !important;
+        }
+
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="main-posts">
+        <div class="container">
+            <div class="row">
+                {{ content.content_text|safe }}
+            </div>
+        </div>
+    </div>
+
+    <div class="btn-group">
+        <a href="{{ url_for('novel.prev', chapter_id=chapter.id) }}">
+            <button type="button" class="btn btn-default">上一章</button>
+        </a>
+        <a href="{{ url_for('novel.next', chapter_id=chapter.id) }}">
+            <button type="button" class="btn btn-default">下一章</button>
+        </a>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+{% endblock %}
