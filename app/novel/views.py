@@ -102,17 +102,6 @@ def next(chapter_id):
     else:
         flash('已经是最新的一章')
         return redirect(url_for('novel.content', chapter_id=chapter_id))
-    # ###
-    # chapter = Chapter.query.filter_by(id=chapter_id).first()
-    # novel = Novel.query.filter_by(id=chapter.novel_id).first()
-    # all_chapters = [i for i in novel.chapters]
-    # # all_chapters是一个集合,通过操作数组很容易拿到下一章内容
-    # if all_chapters[-1] != chapter:
-    #     next_chapter = all_chapters[all_chapters.index(chapter)+1]
-    #     return redirect(url_for('main.content', chapter_id=next_chapter.id))
-    # else:
-    #     flash('已是最后一章了')
-    #     return redirect(url_for('main.content', chapter_id=chapter_id))
 
 
 # 上一章
@@ -120,6 +109,8 @@ def next(chapter_id):
 def prev(chapter_id):
     novel_id = Chapter.query.filter_by(id=chapter_id).first().novel_id
     prev_chapter_id = chapter_id - 1
+    if prev_chapter_id < 1:
+        abort(500)
     prev_novel_id = Chapter.query.filter_by(id=prev_chapter_id).first_or_404().novel_id
 
     if novel_id == prev_novel_id:
@@ -127,13 +118,3 @@ def prev(chapter_id):
     else:
         flash('么有上一章了...')
         return redirect(url_for('novel.content', chapter_id=chapter_id))
-
-    # chapter = Chapter.query.filter_by(id=chapter_id).first()
-    # book = Novel.query.filter_by(id=chapter.book_id).first()
-    # all_chapters = [i for i in book.chapters]
-    # if all_chapters[0] != chapter:
-    #     prev_chapter = all_chapters[all_chapters.index(chapter)-1]
-    #     return redirect(url_for('main.content', chapter_id=prev_chapter.id))
-    # else:
-    #     flash('没有上一章了哦。')
-    #     return redirect(url_for('main.content', chapter_id=chapter_id))
